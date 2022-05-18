@@ -89,7 +89,7 @@ public class CalculadoraMain {
 						
 						for(index = 0 ; index<split.length; index++) {
 							
-							if(split[index].length()>1) {
+							if(split[index].contains("/") || split[index].contains("*")) {
 								
 								String subSplit[] = split[index].split("\\*|\\/");
 								ArrayList<Character> subOperadores = new ArrayList<Character>();
