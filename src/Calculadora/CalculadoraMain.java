@@ -8,22 +8,6 @@ import java.util.Scanner;
 
 public class CalculadoraMain {		
 
-
-		public static void main(String[] args) {
-				
-			Scanner ent = new Scanner(System.in);
-			int opcion = 0;
-			float op1 = 0.0f, op2 = 0.0f;
-				
-			do {
-				System.out.println("Selecciona una opcion \n" +
-							
-						"1º)Suma \n" +
-						"2º)Resta \n" +
-						"3º)Multiplicacion \n" +
-						"4º)Division \n" +
-						"5º)Salir \n");
-
 	public static void main(String[] args) {
 				
 		Scanner ent = new Scanner(System.in);
@@ -33,14 +17,13 @@ public class CalculadoraMain {
 		do {
 			System.out.println("Selecciona una opcion \n" +
 							
-				"1º)suma \n" +
-				"2º)resta \n" +
-				"3º)multiplicacion \n" +
-				"4º)division \n" +
-				"5º)Operacion simple\n" +
-				"6º)salir \n");
+				"1�)suma \n" +
+				"2�)resta \n" +
+				"3�)multiplicacion \n" +
+				"4�)division \n" +
+				"5�)Operacion simple\n" +
+				"6�)salir \n");
 				
-
 				opcion = ent.nextInt();
 					
 				
@@ -53,58 +36,23 @@ public class CalculadoraMain {
 				
 			switch (opcion) {
 			
-
-				
-					case 1:
-						sumar(op1, op2);
-						break;
-					
-					case 2:
-						restar(op1, op2);
-						break;
-					
-					case 3:
-						multiplicar(op1, op2);
-						break;
-					
-					case 4:
-						dividir(op1, op2);
-						break;
-					
-					case 5:
-						System.out.println("adiós");
-						break;
-					
-					default:
-					System.out.println("valor incorrecto");
-						
-				}
-				
-			} while (opcion !=5);
-
 				case 1:
-					System.out.println(op1 + " + " + op2 + " = "+ (op1+op2));
+					sumar(op1, op2);
 					break;
 				case 2:
-					System.out.println(op1 + " - " + op2 + " = "+ (op1-op2));
+					restar(op1, op2);
 					break;
 				case 3:
-					System.out.println(op1 + " x " + op2 + " = "+ (op1*op2));
+					multiplicar(op1, op2);
 					break;
 				case 4:
-					if (op2 !=0)	{	
-						System.out.println(op1 + " / " + op2 + " = "+ (op1/op2));
-						
-					}else { 
-						System.out.println("la division por 0 no es posible");
-					 }
+					dividir(op1, op2);
 					break;
 				case 5: 
 					
-					System.out.println("Introduce una operación simple, sin numeros negativos, letras o paréntesis");
+					System.out.println("Introduce una operaci�n simple, sin numeros negativos, letras o par�ntesis");
 					ent.nextLine();
 					String operacion = ent.nextLine();
-					operacion = calcStr(operacion);
 					System.out.println(operacion);
 					
 					break;
@@ -116,146 +64,33 @@ public class CalculadoraMain {
 				
 			}
 				
-		} while (opcion !=6);			
-	}
-			
-
-	
-	
-	
-	
-			static public String calcStr(String operacion) {
-				try {	
-					float n1 = 0, n2 = 0;
-					int index=0, op = 0;
-					String split[] = null;
-					
-					if(operacion.contains("/") || operacion.contains("*")) {
-						split = operacion.split("\\+|\\-");
-						
-						for(index = 0 ; index<split.length; index++) {
-							
-							if(split[index].contains("/") || split[index].contains("*")) {
-								
-								String subSplit[] = split[index].split("\\*|\\/");
-								ArrayList<Character> subOperadores = new ArrayList<Character>();
-								getOperadores(split[index], subOperadores);
-								
-								n1 = Float.parseFloat(subSplit[0]);
-								op = 0;
-								n2 = 0;
-								
-								for(int r = 1 ; r<subSplit.length ; r++) {
-									
-									n2 = Float.parseFloat(subSplit[r]);
-									
-									switch (subOperadores.get(op)) {
-									
-									
-										case '+' -> n1 = (n1 + n2);
-										case '-' -> n1 = (n1 - n2);
-										case '*' -> n1 = (n1 * n2);
-										case '/' -> n1 = (n1 / n2);
-									}
-								
-									op++;
-								}
-						
-								operacion = operacion.replaceFirst("\\Q"+split[index]+"\\E", String.valueOf(n1)); 
-								
-							}
-						}
-						
-						operacion = calcBajaPrioridad(operacion, split, n1, n2, op);
-					}
-					
-					else {
-						
-						operacion = calcBajaPrioridad(operacion, split, n1, n2, op);
-						
-					}
-							
-					operacion = "Reesultado de la operacion: "+operacion+"\n";
-					return operacion;
-					
-				}catch(NumberFormatException ex) {
-					return operacion = "Esta opción solo acepta operaciones simples (Suma, resta, multiplicación, División.\n"
-							+ "No se aceptan números negativos, parentesis o letras.\n";
-				}
-			}
-			
-			static public void getOperadores(String operacion, ArrayList<Character> operadores ){		
-				for(int i = 0; i<operacion.length(); i++) {
+		} while (opcion !=6);	
 		
-					if(operacion.charAt(i)=='*' || operacion.charAt(i)=='/' ||
-					   operacion.charAt(i)=='+' || operacion.charAt(i)=='-') {
-						
-						operadores.add(operacion.charAt(i));	
-						
-					}
-				}
-			}
-			
-			static public String calcBajaPrioridad(String operacion, String split[], float n1, float n2, int op){
-				split = operacion.split("\\+|\\-");
-				ArrayList<Character> operadores = new ArrayList<Character>();
-				getOperadores(operacion, operadores);
-				
-				n1 = Float.parseFloat(split[0]);
-				op = 0;
-				n2 = 0;
-
-				
-				for (int i = 1; i < split.length ; i++) {
-
-
-			
-	
 	}
-		public static void sumar (float o1, float o2) {
-			
-			System.out.println("La suma de " + o1 + " + " + o2 + " = "+ (o1+o2));
-					
-		}
+	public static void sumar (float o1, float o2) {
+		
+		System.out.println(o1 + " + " + o2 + " = "+ (o1+o2));
 				
-		public static void restar (float o1, float o2) {
-						
-			System.out.println("La resta de: " + o1 + " - " + o2 + " = "+ (o1-o2));
-						
-		}
-		public static void multiplicar (float o1, float o2) {
+	}
+			
+	public static void restar (float o1, float o2) {
 					
-			System.out.println("La multiplicación de: " + o1 + " * " + o2 + " = "+ (o1*o2));
+		System.out.println(o1 + " + " + o2 + " = "+ (o1-o2));
 					
-		}
+	}
+	public static void multiplicar (float o1, float o2) {
 				
-		public static void dividir (float o1, float o2) {
-					
-			if (o2 !=0) {		
-				System.out.println("La división de: " + o1 + " / " + o2 + " = "+ (o1/o2));
-			}else { 
-				System.out.println("La division por 0 no es posible");
-			}
+		System.out.println(o1 + " + " + o2 + " = "+ (o1*o2));
+				
+	}
+			
+	public static void dividir (float o1, float o2) {
+				
+		if (o2 !=0) {		
+		System.out.println(o1 + " / " + o2 + " = "+ (o1/o2));
+		}else { 
+		System.out.println("la division por 0 no es posible");
 		}
-
-					n2 = Float.parseFloat(split[i]);
-					
-					switch (operadores.get(op)) {
-					
-					
-						case '+' -> n1 = (n1 + n2);
-						case '-' -> n1 = (n1 - n2);
-						case '*' -> n1 = (n1 * n2);
-						case '/' -> n1 = (n1 / n2);
-					}
-					
-					op++;
-					
-				}
-				return operacion = ""+n1+"";
-			
-			}
-			
-
-
+	}
 }
+
