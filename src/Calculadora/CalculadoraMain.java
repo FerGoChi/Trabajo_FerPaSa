@@ -34,21 +34,16 @@ public class CalculadoraMain {
 					switch (opcion) {
 
 					case 1:
-					System.out.println(op1 + " + " + op2 + " = "+ (op1+op2));
+						sumar(op1,op2);
 					break;
 					case 2:
-					System.out.println(op1 + " - " + op2 + " = "+ (op1-op2));
+						restar(op1,op2);
 					break;
 					case 3:
-					System.out.println(op1 + " x " + op2 + " = "+ (op1*op2));
+						multiplicar(op1,op2);
 					break;
 					case 4:
-					if (op2 !=0) {
-					System.out.println(op1 + " / " + op2 + " = "+ (op1/op2));
-
-					}else {
-					System.out.println("la division por 0 no es posible");
-					}
+						dividir(op1,op2);
 					break;
 					case 5:
 
@@ -68,6 +63,30 @@ public class CalculadoraMain {
 
 					} while (opcion !=6);
 				}
-	
+				public static void sumar (float o1, float o2) {
+					
+					System.out.println(o1 + " + " + o2 + " = "+ (o1+o2));
+							
+				}
+						
+				public static void restar (float o1, float o2) {
+								
+					System.out.println(o1 + " + " + o2 + " = "+ (o1-o2));
+								
+				}
+				public static void multiplicar (float o1, float o2) {
+							
+					System.out.println(o1 + " + " + o2 + " = "+ (o1*o2));
+							
+				}
+						
+				public static void dividir (float o1, float o2) {
+							
+					if (o2 !=0) {		
+					System.out.println(o1 + " / " + o2 + " = "+ (o1/o2));
+					}else { 
+					System.out.println("la division por 0 no es posible");
+					}
+				}
 }
 
