@@ -1,65 +1,73 @@
-package bbdd;
+package Calculadora;
 
-import java.sql.*;
+import java.util.Scanner;
 
-import java.io.*;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+public class CalculadoraMain {		
 
-public class InsertarProductos {
+			
+				public static void main(String[] args) {
 
-	public static void main(String[] args) {		
-		
-		String bbdd="productosprog";		
-		String url="jdbc:mysql://localhost:3306/"+bbdd;
-		
-		String usuario="root";
-		String password="";		
-		
-		FileReader fr=null;
-		BufferedReader br=null;
-		
-		String[]linea=null;
-		
-		Connection conn= null;
-		PreparedStatement ps =null;		
-		
-		try {			
-			fr= new FileReader("C:\\Users\\ALUMNOS\\Desktop\\Fernando\\PROG\\Ficheros\\productos.csv");
-			br = new BufferedReader(fr);
-			
-			Class.forName("com.mysql.cj.jdbc.Driver");
-			conn= DriverManager.getConnection(url, usuario, password);
-			conn.setAutoCommit(false);
-			
-			ps= conn.prepareStatement("insert into productos values(?,?,?,?)");
-			
-			br.readLine();
-			while(br.ready()) {
-				linea=br.readLine().split(",");
-				ps.setString(1, linea[0]);
-				ps.setString(2, linea[1]);
-				ps.setInt(3, Integer.parseInt(linea[2]));
-				ps.setFloat(4, Float.parseFloat(linea[3]));
-				
-				ps.executeUpdate();					
-			}			
-			conn.commit();
-			System.out.println("insertado correctamente");
-			
-		}catch(FileNotFoundException ex) {			
-			
-			System.out.println("Fichero no encontrado");
-			
-		}catch(ClassNotFoundException ex) {
-			System.out.println("Calse no encontrada");
-			
-		}catch(SQLException ex) {			
-			System.out.println(ex.getMessage());
-		}catch(IOException ex) {
-			System.out.println("Error de E/S");
-		}
-	}
+					Scanner ent = new Scanner(System.in);
+					int opcion = 0;
+					float op1 = 0.0f, op2 = 0.0f;
+
+					do {
+					System.out.println("Selecciona una opcion \n" +
+
+					"1º)suma \n" +
+					"2º)resta \n" +
+					"3º)multiplicacion \n" +
+					"4º)division \n" +
+					"5º)Operacion simple\n" +
+					"6º)salir \n");
+
+					opcion = ent.nextInt();
+
+
+					if (opcion >=1 && opcion  <=4) {
+					System.out.println("Introduce un numero");
+					op1 = ent.nextFloat();
+					System.out.println("Introduce un otro numero");
+					op2 = ent.nextFloat();
+					}
+					
+					switch (opcion) {
+
+					case 1:
+					System.out.println(op1 + " + " + op2 + " = "+ (op1+op2));
+					break;
+					case 2:
+					System.out.println(op1 + " - " + op2 + " = "+ (op1-op2));
+					break;
+					case 3:
+					System.out.println(op1 + " x " + op2 + " = "+ (op1*op2));
+					break;
+					case 4:
+					if (op2 !=0) {
+					System.out.println(op1 + " / " + op2 + " = "+ (op1/op2));
+
+					}else {
+					System.out.println("la division por 0 no es posible");
+					}
+					break;
+					case 5:
+
+					System.out.println("Introduce una operación simple, sin numeros negativos, letras o paréntesis");
+					ent.nextLine();
+					String operacion = ent.nextLine();
+					System.out.println(operacion);
+
+					break;
+					case 6:
+					System.out.println("adios");
+					break;
+					default:
+					System.out.println("valor incorrecto");
+
+					}
+
+					} while (opcion !=6);
+				}
+	
 }
+
